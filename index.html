@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Dad!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-secondary: #F9E076;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /* Prevents pull-to-refresh on mobile if desired, or just ensures smooth scrolling */
+            overscroll-behavior-y: contain;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Light Mode Styles */
+        body.light {
+            background-color: #FDFBF7;
+            color: #1A1A1A;
+        }
+        .light .card {
+            background: white;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+        .light .accent-block { background: #fdf2d5; }
+
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #0F1115;
+            color: #F5F5F5;
+        }
+        .dark .card {
+            background: #1A1D23;
+            box-shadow: 0 10px 40px -5px rgba(0, 0, 0, 0.4);
+            border: 1px solid #2D3139;
+        }
+        .dark .accent-block { background: #1e242e; }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--gold-primary);
+            opacity: 0;
+            top: -20px;
+            border-radius: 2px;
+            z-index: 100;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .gold-text {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cake-container {
+            font-size: clamp(3rem, 15vw, 5rem);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .btn-celebrate {
+            background: linear-gradient(135deg, #D4AF37 0%, #B38728 100%);
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+
+        .btn-celebrate:active {
+            transform: scale(0.95);
+        }
+
+        .photo-frame {
+            border: 4px solid var(--gold-primary);
+            position: relative;
+           
+        }
+    </style>
+</head>
+<body class="light flex flex-col items-center min-h-screen p-4 py-8 md:py-12">
+
+    <!-- Theme Toggle (Manual Override) -->
+    <button id="themeToggle" class="fixed top-4 right-4 p-3 rounded-full border border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-black/80 backdrop-blur-sm transition-colors z-50">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <main class="relative z-10 w-full max-w-xl text-center space-y-6 md:space-y-8">
+        <!-- Main Card -->
+        <div class="card p-6 md:p-12 rounded-[2rem] transition-all">
+            <div class="cake-container mb-4">🎂</div>
+            
+            <h1 class="serif text-4xl md:text-7xl mb-4 gold-text leading-tight">
+                Happy Birthday!
+            </h1>
+            
+            <p class="text-lg md:text-2xl font-semibold opacity-90 mb-6">
+                To the Best Dad Ever
+            </p>
+
+            <!-- Photo Frame -->
+            <div class="w-40 h-40 md:w-56 md:h-56 mx-auto mb-8 rounded-full photo-frame bg-gray-100 dark:bg-gray-800 flex items-center justify-center italic text-[10px] md:text-xs opacity-40 px-6 md:px-8 text-center overflow-hidden">
+                <!-- ADD PHOTO HERE: Replace the empty src="" with your image URL below -->
+                <img src="/home/jew/Desktop/CyberSecurity Essential/daddy.jpg" alt="Dad's Photo" class="w-full h-full object-cover hidden" onload="this.classList.remove('hidden'); this.parentElement.querySelector('span').classList.add('hidden')">
+                <span>Add your favorite photo of him here!</span>
+            </div>
+
+            <button onclick="spawnConfetti()" class="btn-celebrate w-full md:w-auto text-white font-bold py-4 px-12 rounded-full text-lg shadow-xl">
+                Celebrate! 🎉
+            </button>
+        </div>
+
+        <!-- Message Section -->
+        <div class="card p-6 md:p-10 rounded-[2rem] text-left space-y-6">
+            <h2 class="serif text-2xl md:text-3xl gold-text">A Special Wish</h2>
+            <p class="leading-relaxed opacity-80 text-base md:text-lg">
+                Dad, today is all about you. We wanted to take a moment to say how much we appreciate your guidance, your humor, and your endless support. You make every day better just by being you.
+            </p>
+            <div class="accent-block p-5 md:p-6 rounded-2xl italic border-l-4 border-[#D4AF37] text-sm md:text-base">
+                "Thank you for being the foundation of our family and for always showing us the way with a smile."
+            </div>
+        </div>
+
+        <!-- Birthday Vibe Icons -->
+        <div class="flex justify-around items-center py-4 md:py-6 opacity-70">
+            <div class="flex flex-col items-center gap-1">
+                <span class="text-2xl md:text-3xl">🎉</span>
+                <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold">Party</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <span class="text-2xl md:text-3xl">🍷</span>
+                <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold">Cheers</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <span class="text-2xl md:text-3xl">⛳</span>
+                <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold">Relax</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+                <span class="text-2xl md:text-3xl">🎁</span>
+                <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold">Surprise</span>
+            </div>
+        </div>
+
+        <p class="text-xs md:text-sm opacity-40 pb-8">Created with ❤️ for a legendary Dad</p>
+    </main>
+
+    <div id="confetti-wrapper" class="fixed inset-0 pointer-events-none z-50"></div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        const wrapper = document.getElementById('confetti-wrapper');
+
+        // Dynamic Theme Logic (Detect System Preference)
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.replace('light', 'dark');
+                themeIcon.innerText = '☀️';
+            } else {
+                body.classList.replace('dark', 'light');
+                themeIcon.innerText = '🌙';
+            }
+        }
+
+        // Initialize theme based on system preference
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        setTheme(systemPrefersDark.matches);
+
+        // Listen for system changes dynamically
+        systemPrefersDark.addEventListener('change', e => setTheme(e.matches));
+
+        // Manual Toggle Override
+        themeToggle.addEventListener('click', () => {
+            const isCurrentlyLight = body.classList.contains('light');
+            setTheme(isCurrentlyLight); // If light, set to dark, and vice versa
+        });
+
+        // Confetti
+        function spawnConfetti() {
+            const colors = ['#D4AF37', '#F9E076', '#AA771C', '#FFFFFF', '#3498db'];
+            const amount = window.innerWidth < 768 ? 40 : 80;
+            
+            for (let i = 0; i < amount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                const size = Math.random() * 8 + 4 + 'px';
+                confetti.style.width = size;
+                confetti.style.height = size;
+                confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+                confetti.style.opacity = Math.random();
+                wrapper.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(spawnConfetti, 800);
+        });
+    </script>
+</body>
+</html>
